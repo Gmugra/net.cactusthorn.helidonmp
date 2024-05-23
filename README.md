@@ -1,8 +1,8 @@
 # net.cactusthorn.helidonmp
 
-The simple Test application done with [Helidon MP 4.x](https://helidon.io/docs/v4/mp/introduction)  
-It's based on Helidon MP's "Pokemon" demo app, but expanded to make the demo more realistic.  
-(however all requests are 100% same)  
+The simple Demo application done with [Helidon MP 4.x](https://helidon.io/docs/v4/mp/introduction)  
+It's based on Helidon MP's "Pokemon" demo app, but the original demo has been expanded to make it more "realistic". 
+(however REST API are 100% same)  
   
 ## Differences from the original demo application
 
@@ -46,9 +46,15 @@ Original demo app do not have "Main" class but here we have one
 -   To setup JUL -> SLF4JBridge
 -   To run Flyway before server start
 
-###  Build
+###  Build with Maven
 
 1.  Set finalName=${project.artifactId}-${project.version}
-2.  Use **maven-assembly-plugin** to generat ZIP artifact with all Lib and the application
+2.  added **.mvn** folder
+3.  Use **maven-assembly-plugin** to generat ZIP artifact with all Lib and the application
     -   target/helidonmp-demo-1.0.0-full.zip 
     -   A simple way to create the atifact that contains everything an application needs at runtime and can be placed in, for example, an Artifactory
+
+###  Miscellaneous
+
+1.  Original **Message** *class* converted to *record*
+2.  More clean *.gitattributes* & *.gitignore*

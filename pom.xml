@@ -1,0 +1,476 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>io.helidon.applications</groupId>
+        <artifactId>helidon-mp</artifactId>
+        <version>4.0.8</version>
+        <relativePath/>
+    </parent>
+
+    <groupId>net.cactusthorn.helidonmp</groupId>
+    <artifactId>helidonmp-demo</artifactId>
+    <version>1.0.0</version>
+
+    <properties>
+
+        <mainClass>net.cactusthorn.helidonmp.demo.Main</mainClass>
+
+        <maven.build.timestamp.format>yyyy-MM-dd'T'HH:mm:ss'Z'</maven.build.timestamp.format>
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <jdk.version>21</jdk.version>
+        <require.maven.version>3.8.0</require.maven.version>
+
+        <dependency.flyway>9.22.3</dependency.flyway>
+        <dependency.deltaspike-data>2.0.0</dependency.deltaspike-data>
+
+        <!-- test -->
+        <dependency.junit-jupiter>5.10.2</dependency.junit-jupiter>
+        <dependency.embedded-postgres>2.0.7</dependency.embedded-postgres>
+        <dependency.embedded-postgres-binaries-bom>16.2.0</dependency.embedded-postgres-binaries-bom>
+
+        <!-- maven plugins -->
+        <plugin.dependency>3.6.1</plugin.dependency>
+        <plugin.compiler>3.12.1</plugin.compiler>
+        <plugin.resources>3.3.1</plugin.resources>
+        <plugin.test>3.2.5</plugin.test>
+        <plugin.clean>3.3.2</plugin.clean>
+        <plugin.install>3.1.1</plugin.install>
+        <plugin.javadoc>3.6.3</plugin.javadoc>
+        <plugin.source>3.3.0</plugin.source>
+        <plugin.enforcer>3.4.1</plugin.enforcer>
+        <plugin.jar>3.3.0</plugin.jar>
+        <plugin.deploy>3.1.1</plugin.deploy>
+        <plugin.assembly>3.6.0</plugin.assembly>
+        <plugin.staticweave>1.0.0</plugin.staticweave>
+        <plugin.eclipse>2.10</plugin.eclipse>
+        <plugin.jxr>3.3.2</plugin.jxr>
+
+    </properties>
+
+    <dependencies>
+
+        <!-- helidon -->
+
+        <dependency>
+            <groupId>io.helidon.microprofile.bundles</groupId>
+            <artifactId>helidon-microprofile-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.helidon.microprofile.health</groupId>
+            <artifactId>helidon-microprofile-health</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-json-jackson</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.helidon.logging</groupId>
+            <artifactId>helidon-logging-slf4j</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.smallrye</groupId>
+            <artifactId>jandex</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.microprofile.metrics</groupId>
+            <artifactId>microprofile-metrics-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.helidon.microprofile.metrics</groupId>
+            <artifactId>helidon-microprofile-metrics</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.helidon.integrations.cdi</groupId>
+            <artifactId>helidon-integrations-cdi-eclipselink</artifactId>
+            <!-- scope>runtime</!scope --> <!-- need it with compile scope to use EclispeLink specific features in code -->
+        </dependency>
+        <dependency>
+            <groupId>io.helidon.integrations.cdi</groupId>
+            <artifactId>helidon-integrations-cdi-datasource-hikaricp</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.annotation</groupId>
+            <artifactId>jakarta.annotation-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.enterprise</groupId>
+            <artifactId>jakarta.enterprise.cdi-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.inject</groupId>
+            <artifactId>jakarta.inject-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.ws.rs</groupId>
+            <artifactId>jakarta.ws.rs-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.persistence</groupId>
+            <artifactId>jakarta.persistence-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.transaction</groupId>
+            <artifactId>jakarta.transaction-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.helidon.common</groupId>
+            <artifactId>helidon-common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.helidon.integrations.cdi</groupId>
+            <artifactId>helidon-integrations-cdi-jta-weld</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.helidon.integrations.cdi</groupId>
+            <artifactId>helidon-integrations-cdi-jpa</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>jakarta.el</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- compile -->
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <!-- To get JUL -> Slf4j bridge -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jul-to-slf4j</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+            <version>${dependency.flyway}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.deltaspike.modules</groupId>
+            <artifactId>deltaspike-data-module-api</artifactId>
+            <version>${dependency.deltaspike-data}</version>
+        </dependency>
+
+        <!-- runtime -->
+
+        <dependency>
+            <groupId>org.apache.deltaspike.modules</groupId>
+            <artifactId>deltaspike-data-module-impl</artifactId>
+            <version>${dependency.deltaspike-data}</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!--
+            To get org.eclipse.persistence.logging.slf4j.SLF4JLogger
+            which is using in the persistence.xml
+        -->
+        <dependency>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>org.eclipse.persistence.extension</artifactId>
+            <version>${version.lib.eclipselink}</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- test -->
+
+        <dependency>
+            <groupId>io.helidon.microprofile.testing</groupId>
+            <artifactId>helidon-microprofile-testing-junit5</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.zonky.test</groupId>
+            <artifactId>embedded-postgres</artifactId>
+            <version>${dependency.embedded-postgres}</version>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>io.zonky.test.postgres</groupId>
+                <artifactId>embedded-postgres-binaries-bom</artifactId>
+                <version>${dependency.embedded-postgres-binaries-bom}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+
+        <finalName>${project.artifactId}-${project.version}</finalName>
+
+        <plugins>
+
+            <plugin>
+                <artifactId>maven-source-plugin</artifactId>
+            </plugin>
+
+             <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <!-- 
+                        forkCount MUST BE 1 because we want to run single instance of embedded-postgres
+                        for all JUnit test-classes.
+                        FYI:  net.cactusthorn.helidonmp.demo.junit5.GlobalSingleInstanceEmbeddedPostgresExtension
+                        
+                    -->
+                    <forkCount>1</forkCount><!-- MUST BE 1 -->
+                </configuration>
+            </plugin>
+
+            <!-- https://wiki.eclipse.org/EclipseLink/UserGuide/JPA/Advanced_JPA_Development/Performance/Weaving -->
+            <plugin>
+                <groupId>de.empulse.eclipselink</groupId>
+                <artifactId>staticweave-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>weave</goal>
+                        </goals>
+                        <configuration>
+                            <persistenceXMLLocation>META-INF/persistence.xml</persistenceXMLLocation>
+                            <logLevel>WARNING</logLevel>
+                        </configuration>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.eclipse.persistence</groupId>
+                        <artifactId>org.eclipse.persistence.jpa</artifactId>
+                        <version>${version.lib.eclipselink}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
+            <plugin>
+                <groupId>io.smallrye</groupId>
+                <artifactId>jandex-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>make-index</id>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-libs</id>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <descriptors>
+                        <descriptor>${project.basedir}/src/assembly/full.xml</descriptor>
+                    </descriptors>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+
+        <pluginManagement>
+        <plugins>
+
+            <plugin>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>${plugin.dependency}</version>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${plugin.compiler}</version>
+                <configuration>
+                    <source>${jdk.version}</source>
+                    <target>${jdk.version}</target>
+                    <parameters>true</parameters>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>${plugin.resources}</version>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${plugin.test}</version>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>${plugin.test}</version>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>${plugin.clean}</version>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>${plugin.install}</version>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>${plugin.javadoc}</version>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>${plugin.deploy}</version>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>${plugin.assembly}</version>
+            </plugin>
+
+            <plugin>
+                <groupId>de.empulse.eclipselink</groupId>
+                <artifactId>staticweave-maven-plugin</artifactId>
+                <version>${plugin.staticweave}</version>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-eclipse-plugin</artifactId>
+                <version>${plugin.eclipse}</version>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>${plugin.source}</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                        </manifest>
+                        <manifestEntries>
+                            <Implementation-Group-Id>${project.groupId}</Implementation-Group-Id>
+                            <Implementation-Artifact-Id>${project.artifactId}</Implementation-Artifact-Id>
+                            <Build-Time>${maven.build.timestamp}</Build-Time>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>${plugin.enforcer}</version>
+                <executions>
+                    <execution>
+                        <id>enforce-maven</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireMavenVersion>
+                                    <message>Current version of Maven ${maven.version}: should be ${require.maven.version}, or igher!</message>
+                                    <version>${require.maven.version}</version>
+                                </requireMavenVersion>
+                                <requireJavaVersion>
+                                    <message>Current JDK version ${java.version}: should be ${jdk.version}, or higher!</message>
+                                    <version>${jdk.version}</version>
+                                </requireJavaVersion>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>${plugin.jar}</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                        </manifest>
+                        <manifestEntries>
+                            <Implementation-Group-Id>${project.groupId}</Implementation-Group-Id>
+                            <Implementation-Artifact-Id>${project.artifactId}</Implementation-Artifact-Id>
+                            <Build-Time>${maven.build.timestamp}</Build-Time>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+
+        </plugins>
+        </pluginManagement>
+
+    </build>
+
+</project>

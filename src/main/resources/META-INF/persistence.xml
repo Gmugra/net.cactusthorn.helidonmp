@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
+             version="3.0">
+
+    <persistence-unit name="demo" transaction-type="JTA">
+
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+
+        <jta-data-source>dsdemo</jta-data-source>
+
+        <class>net.cactusthorn.helidonmp.demo.db.model.PokemonType</class>
+        <class>net.cactusthorn.helidonmp.demo.db.model.Pokemon</class>
+
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>
+
+        <shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
+
+        <properties>
+            <property name="eclipselink.deploy-on-startup" value="true"/>
+            <property name="eclipselink.jdbc.native-sql" value="true"/>
+
+            <!-- https://wiki.eclipse.org/EclipseLink/UserGuide/JPA/Advanced_JPA_Development/Performance/Weaving/Static_Weaving -->
+            <property name="eclipselink.weaving" value="static"/>
+
+            <property name="eclipselink.logging.logger" value="org.eclipse.persistence.logging.slf4j.SLF4JLogger"/>
+            <property name="eclipselink.logging.level" value="SEVERE" />
+            <property name="eclipselink.logging.level.sql" value="SEVERE" />
+            <property name="eclipselink.logging.parameters" value="true" />
+            <property name="eclipselink.logging.exceptions" value="true" />
+
+        </properties>
+    </persistence-unit>
+</persistence>

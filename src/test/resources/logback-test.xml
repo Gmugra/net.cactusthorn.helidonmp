@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration><!--  to avoid warning in Eclipse -->
+<configuration>
+
+    <!--
+    This configuration will switch of logging to console,
+    but logging itself will work, which keep possibility to 
+    write logging related unit-test
+    -->
+    <appender name="DONOTHING"
+        class="ch.qos.logback.core.helpers.NOPAppender" />
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>[%level] %d{HH:mm:ss.SSS} [%thread] %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="net.cactusthorn.helidonmp.demo.junit5" level="INFO" additivity="false">
+      <appender-ref ref="STDOUT" />
+    </logger>
+
+    <logger name="org.flywaydb" level="WARN" additivity="false">
+      <appender-ref ref="STDOUT" />
+    </logger>
+    <logger name="org.flywaydb.core.internal.command.DbMigrate" level="INFO" additivity="false">
+      <appender-ref ref="STDOUT" />
+    </logger>
+
+    <logger name="eclipselink.logging" level="DEBUG" additivity="false">
+      <appender-ref ref="STDOUT" />
+    </logger>
+
+    <root level="TRACE">
+        <appender-ref ref="DONOTHING" />
+    </root>
+
+</configuration>

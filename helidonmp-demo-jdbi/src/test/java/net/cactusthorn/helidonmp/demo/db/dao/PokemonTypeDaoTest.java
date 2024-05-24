@@ -1,5 +1,7 @@
 package net.cactusthorn.helidonmp.demo.db.dao;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -30,5 +32,11 @@ class PokemonTypeDaoTest {
   void getPokemonTypeByIdEmpty() {
     var result = pokemonTypeDao.findById(77);
     Assertions.assertFalse(result.isPresent());
+  }
+
+  @Test
+  void getPokemonTypesById() {
+    var result = pokemonTypeDao.findById(List.of(1,6));
+    Assertions.assertEquals(2, result.size());
   }
 }

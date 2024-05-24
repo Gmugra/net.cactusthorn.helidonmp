@@ -1,6 +1,6 @@
 package net.cactusthorn.helidonmp.demo.db.model;
 
-import org.jdbi.v3.core.mapper.reflect.ColumnName;
+import java.beans.ConstructorProperties;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
@@ -13,12 +13,8 @@ public final class Pokemon {
   private int type;
 
   @JsonCreator
-  public Pokemon(
-  // @formatter:off
-      @ColumnName("ID") @JsonProperty("id") int id,
-      @ColumnName("NAME") @JsonProperty("name") String name,
-      @ColumnName("POKEMONTYPE_ID") @JsonProperty("type") int type) {
-  // @formatter:on
+  @ConstructorProperties({"ID", "NAME", "POKEMONTYPE_ID"}) //JDBI
+  public Pokemon(@JsonProperty("id") int id, @JsonProperty("name") String name, @JsonProperty("type") int type) {
     this.id = id;
     this.name = name;
     this.type = type;

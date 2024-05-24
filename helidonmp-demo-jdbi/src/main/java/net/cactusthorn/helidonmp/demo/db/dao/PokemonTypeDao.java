@@ -1,5 +1,6 @@
 package net.cactusthorn.helidonmp.demo.db.dao;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,6 +31,14 @@ public final class PokemonTypeDao {
     // @formatter:off
     return jdbi
       .withHandle(h -> h.createQuery("select * from POKEMONTYPE WHERE ID = :id").bind("id", id).mapTo(PokemonType.class).findOne());
+    // @formatter:on
+  }
+
+  public List<PokemonType> findById(Collection<Integer> ids) {
+    // @formatter:off
+    return jdbi
+        .withHandle(h -> h.createQuery("select * from POKEMONTYPE WHERE ID in (<ids>)")
+            .bindList("ids", ids).mapTo(PokemonType.class).list());
     // @formatter:on
   }
 }

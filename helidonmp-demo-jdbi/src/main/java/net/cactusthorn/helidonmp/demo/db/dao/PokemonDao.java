@@ -43,9 +43,7 @@ public final class PokemonDao {
   public void add(Pokemon pokemon) {
     // @formatter:off
     jdbi.useTransaction(h -> h.createUpdate("insert into POKEMON (ID, NAME, POKEMONTYPE_ID) values (:id, :name, :type)")
-        .bind("id", pokemon.id())
-        .bind("name", pokemon.name())
-        .bind("type", pokemon.type())
+        .bindMethods(pokemon)
         .execute());
     // @formatter:on
   }

@@ -12,10 +12,11 @@
     <groupId>net.cactusthorn.helidonmp</groupId>
     <artifactId>helidonmp-demo</artifactId>
     <version>1.0.0</version>
+    <packaging>pom</packaging>
+
+    <name>Helidon MP Demo :: Root</name>
 
     <properties>
-
-        <mainClass>net.cactusthorn.helidonmp.demo.Main</mainClass>
 
         <maven.build.timestamp.format>yyyy-MM-dd'T'HH:mm:ss'Z'</maven.build.timestamp.format>
 
@@ -26,7 +27,6 @@
         <require.maven.version>3.8.0</require.maven.version>
 
         <dependency.flyway>9.22.3</dependency.flyway>
-        <dependency.deltaspike-data>2.0.0</dependency.deltaspike-data>
 
         <!-- test -->
         <dependency.junit-jupiter>5.10.2</dependency.junit-jupiter>
@@ -51,6 +51,10 @@
         <plugin.jxr>3.3.2</plugin.jxr>
 
     </properties>
+
+    <modules>
+        <module>helidonmp-demo-jpa</module>
+    </modules>
 
     <dependencies>
 
@@ -97,11 +101,6 @@
         </dependency>
         <dependency>
             <groupId>io.helidon.integrations.cdi</groupId>
-            <artifactId>helidon-integrations-cdi-eclipselink</artifactId>
-            <!-- scope>runtime</!scope --> <!-- need it with compile scope to use EclispeLink specific features in code -->
-        </dependency>
-        <dependency>
-            <groupId>io.helidon.integrations.cdi</groupId>
             <artifactId>helidon-integrations-cdi-datasource-hikaricp</artifactId>
             <scope>runtime</scope>
         </dependency>
@@ -122,26 +121,8 @@
             <artifactId>jakarta.ws.rs-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>jakarta.persistence</groupId>
-            <artifactId>jakarta.persistence-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>jakarta.transaction</groupId>
-            <artifactId>jakarta.transaction-api</artifactId>
-        </dependency>
-        <dependency>
             <groupId>io.helidon.common</groupId>
             <artifactId>helidon-common</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.helidon.integrations.cdi</groupId>
-            <artifactId>helidon-integrations-cdi-jta-weld</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.helidon.integrations.cdi</groupId>
-            <artifactId>helidon-integrations-cdi-jpa</artifactId>
-            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.hibernate.validator</groupId>
@@ -177,35 +158,11 @@
             <artifactId>h2</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.apache.deltaspike.modules</groupId>
-            <artifactId>deltaspike-data-module-api</artifactId>
-            <version>${dependency.deltaspike-data}</version>
-        </dependency>
-
         <!-- runtime -->
-
-        <dependency>
-            <groupId>org.apache.deltaspike.modules</groupId>
-            <artifactId>deltaspike-data-module-impl</artifactId>
-            <version>${dependency.deltaspike-data}</version>
-            <scope>runtime</scope>
-        </dependency>
 
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-
-        <!--
-            To get org.eclipse.persistence.logging.slf4j.SLF4JLogger
-            which is using in the persistence.xml
-        -->
-        <dependency>
-            <groupId>org.eclipse.persistence</groupId>
-            <artifactId>org.eclipse.persistence.extension</artifactId>
-            <version>${version.lib.eclipselink}</version>
             <scope>runtime</scope>
         </dependency>
 
@@ -264,69 +221,6 @@
                     -->
                     <forkCount>1</forkCount><!-- MUST BE 1 -->
                 </configuration>
-            </plugin>
-
-            <!-- https://wiki.eclipse.org/EclipseLink/UserGuide/JPA/Advanced_JPA_Development/Performance/Weaving -->
-            <plugin>
-                <groupId>de.empulse.eclipselink</groupId>
-                <artifactId>staticweave-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>process-classes</phase>
-                        <goals>
-                            <goal>weave</goal>
-                        </goals>
-                        <configuration>
-                            <persistenceXMLLocation>META-INF/persistence.xml</persistenceXMLLocation>
-                            <logLevel>WARNING</logLevel>
-                        </configuration>
-                    </execution>
-                </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.eclipse.persistence</groupId>
-                        <artifactId>org.eclipse.persistence.jpa</artifactId>
-                        <version>${version.lib.eclipselink}</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
-
-            <plugin>
-                <groupId>io.smallrye</groupId>
-                <artifactId>jandex-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>make-index</id>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>copy-libs</id>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <configuration>
-                    <descriptors>
-                        <descriptor>${project.basedir}/src/assembly/full.xml</descriptor>
-                    </descriptors>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>make-assembly</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
 
         </plugins>

@@ -51,6 +51,7 @@
     <modules>
         <module>helidonmp-demo-junit5</module>
         <module>helidonmp-demo-jpa</module>
+        <module>helidonmp-demo-jdbi</module>
     </modules>
 
     <dependencies>

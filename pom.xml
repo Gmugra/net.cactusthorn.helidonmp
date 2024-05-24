@@ -26,12 +26,8 @@
         <jdk.version>21</jdk.version>
         <require.maven.version>3.8.0</require.maven.version>
 
-        <dependency.flyway>9.22.3</dependency.flyway>
-
-        <!-- test -->
-        <dependency.junit-jupiter>5.10.2</dependency.junit-jupiter>
-        <dependency.embedded-postgres>2.0.7</dependency.embedded-postgres>
         <dependency.embedded-postgres-binaries-bom>16.2.0</dependency.embedded-postgres-binaries-bom>
+        <dependency.flyway>9.22.3</dependency.flyway>
 
         <!-- maven plugins -->
         <plugin.dependency>3.6.1</plugin.dependency>
@@ -53,6 +49,7 @@
     </properties>
 
     <modules>
+        <module>helidonmp-demo-junit5</module>
         <module>helidonmp-demo-jpa</module>
     </modules>
 
@@ -173,32 +170,8 @@
             <artifactId>helidon-microprofile-testing-junit5</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>io.zonky.test</groupId>
-            <artifactId>embedded-postgres</artifactId>
-            <version>${dependency.embedded-postgres}</version>
-            <scope>test</scope>
-        </dependency>
 
     </dependencies>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>io.zonky.test.postgres</groupId>
-                <artifactId>embedded-postgres-binaries-bom</artifactId>
-                <version>${dependency.embedded-postgres-binaries-bom}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
     <build>
 

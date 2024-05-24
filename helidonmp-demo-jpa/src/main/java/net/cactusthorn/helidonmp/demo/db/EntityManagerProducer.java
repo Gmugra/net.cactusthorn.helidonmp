@@ -12,8 +12,12 @@ import jakarta.persistence.PersistenceContext;
 @ApplicationScoped
 public class EntityManagerProducer {
 
-  @PersistenceContext(unitName = "demo")
   private EntityManager entityManager;
+
+  @PersistenceContext(unitName = "demo")
+  public void setEntityManager(EntityManager entityManager) {
+    this.entityManager = entityManager;
+  }
 
   @Produces
   @DemoDB

@@ -39,4 +39,9 @@ public final class Pokemon {
     return type;
   }
 
+  @Override
+  public String toString() {
+    return "Pokemon [id=" + id + ", name=" + name + ", type=" + type + "]";
+  }
+
 }

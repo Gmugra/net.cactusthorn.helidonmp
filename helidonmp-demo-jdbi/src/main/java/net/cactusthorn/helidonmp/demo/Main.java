@@ -14,7 +14,7 @@ public class Main {
 
   public static void main(final String... args) {
     
-    //Jersey is using JUL, to "bridge" it to Slf4j we need next code.
+    //e.g. Jersey is using JUL, to "bridge" it to Slf4j we need next code.
     SLF4JBridgeHandler.removeHandlersForRootLogger();
     SLF4JBridgeHandler.install();
 

@@ -15,7 +15,7 @@ public final class PokemonType {
   }
 
   @JsonGetter("id")
-  public int getId() {
+  public int id() {
     return id;
   }
 
